@@ -49,7 +49,6 @@ module.exports = {
           path: process.env.npm_package_config_docs_path || 'docs',
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/placeos/docs/edit/master/',
           include: ['{,!(node_modules)/**/}!(README).md'],
         },
         blog: false,
