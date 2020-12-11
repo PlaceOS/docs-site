@@ -50,6 +50,7 @@ module.exports = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           include: ['{,!(node_modules)/**/}!(README).md'],
+          showLastUpdateTime: true,
         },
         blog: false,
         pages: false,
