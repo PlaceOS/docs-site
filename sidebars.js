@@ -23,7 +23,13 @@ const { parseMarkdownString } = require('@docusaurus/utils')
 // Ignore `.` files and directories, anything that isn't markdown and readme's
 const ignored = /(^\.)|(\.(?!md$))|(^readme\.md$)|^node_modules$/i
 
-const content_path = process.env.npm_package_config_docs_path;
+// Relative path from CWD to the site renderer
+const siteDir = process.env.npm_package_config_site_dir || "."
+
+// Relative path from siteDir to the docs content
+const docsPath = process.env.npm_package_config_docs_path
+
+const content_path = path.join(siteDir, docsPath)
 
 function parseFrontMatter(path) {
   const content = fs.readFileSync(path, 'utf8')
