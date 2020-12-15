@@ -21,7 +21,7 @@ const path = require('path')
 const { parseMarkdownString } = require('@docusaurus/utils')
 
 // Ignore `.` files and directories, anything that isn't markdown and readme's
-const ignored = /(^\.)|(\.(?!md$))|(^readme\.md$)/i
+const ignored = /(^\.)|(\.(?!md$))|(^readme\.md$)|^node_modules$/i
 
 const content_path = process.env.npm_package_config_docs_path;
 
