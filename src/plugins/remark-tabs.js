@@ -4,10 +4,9 @@ const Slugger = require('github-slugger')
 
 // Insert an import node to a mdast tree
 const injectImport = (tree, value) => {
-  let node = {type: 'import', value}
-  if (!tree.children.includes(node)) {
-    tree.children.push(node)
-  }
+  let seen = false
+  visit(tree, 'import', node => (node.value == value) ? seen = true : null)
+  if (!seen) { tree.children.push({type: 'import', value}) }
 }
 
 module.exports = () => (tree, file) => {
