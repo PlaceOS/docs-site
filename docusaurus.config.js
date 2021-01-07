@@ -51,7 +51,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           include: ['{,!(node_modules)/**/}!(README).md'],
           showLastUpdateTime: true,
-          remarkPlugins: [
+          beforeDefaultRemarkPlugins: [
             require('./src/plugins/remark-tabs.js')
           ],
         },
