@@ -1,37 +1,52 @@
 const visit = require('unist-util-visit')
-const fromParse5 = require('hast-util-from-parse5')
 const parse5 = require('parse5')
+const Slugger = require('github-slugger')
 
-// Parse a mdast jsx node to a hast tree
-const toHast = (node) => fromParse5(parse5.parseFragment(node.value))
-
-const injectImports = (tree) => {
-  tree.children.push({type: 'import', value: "import Tabs from '@theme/Tabs';"})
-  tree.children.push({type: 'import', value: "import TabItem from '@theme/TabItem';"})
+// Insert an import node to a mdast tree
+const injectImport = (tree, value) => {
+  let node = {type: 'import', value}
+  if (!tree.children.includes(node)) {
+    tree.children.push(node)
+  }
 }
 
 module.exports = () => (tree, file) => {
   visit(tree, 'jsx', node => {
-    let hast = toHast(node)
-    console.log(hast)
+    let details = parse5.parseFragment(node.value).childNodes.filter(n => n.nodeName == 'details')
 
-    visit(hast, {tagName: 'details'}, node => {
-       console.log(node.children)
+    let slugger = new Slugger()
+
+    let tabs = details.map((elem) => {
+      let summary = elem.childNodes.findIndex(n => n.nodeName == 'summary')
+
+      let label, value, body
+
+      [label, ] = elem.childNodes.splice(summary, 1)
+      label = parse5.serialize(label)
+
+      value = slugger.slug(label)
+
+      body = parse5.serialize(elem)
+
+      return {label, value, body}
     })
 
-    node.value = `
-      <Tabs
-        defaultValue="apple"
-        values={[
-          {label: 'Apple', value: 'apple'},
-          {label: 'Orange', value: 'orange'},
-          {label: 'Banana', value: 'banana'},
-        ]}>
-        <TabItem value="apple">This is an apple 🍎</TabItem>
-        <TabItem value="orange">This is an orange 🍊</TabItem>
-        <TabItem value="banana">This is a banana 🍌</TabItem>
-      </Tabs>
-    `
-    injectImports(tree)
+    if (tabs.length > 0) {
+      injectImport(tree, "import Tabs from '@theme/Tabs';")
+      injectImport(tree, "import TabItem from '@theme/TabItem';")
+      node.value = `
+        <Tabs
+          values={[
+          ${tabs.map(({label, value}) =>
+            `{label: '${label}', value: '${value}'}`
+          ).join(',')}
+          ]}>
+          ${tabs.map(({value, body}) =>
+            `<TabItem value="${value}">${body}</TabItem>`
+          ).join('\n')}
+        </Tabs>
+      `
+      console.log(node.value)
+    }
   })
 }
