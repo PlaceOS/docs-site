@@ -9,9 +9,12 @@ const injectImport = (tree, value) => {
   if (!seen) { tree.children.push({type: 'import', value}) }
 }
 
+// Rewrite jsx nodes containing a set of <details> elements as <Tab> components
 module.exports = () => (tree, file) => {
   visit(tree, 'jsx', node => {
     let details = parse5.parseFragment(node.value).childNodes.filter(n => n.nodeName == 'details')
+
+    if (details.length < 2) { return }
 
     let slugger = new Slugger()
 
@@ -30,22 +33,19 @@ module.exports = () => (tree, file) => {
       return {label, value, body}
     })
 
-    if (tabs.length > 0) {
-      injectImport(tree, "import Tabs from '@theme/Tabs';")
-      injectImport(tree, "import TabItem from '@theme/TabItem';")
-      node.value = `
-        <Tabs
-          values={[
-          ${tabs.map(({label, value}) =>
-            `{label: '${label}', value: '${value}'}`
-          ).join(',')}
-          ]}>
-          ${tabs.map(({value, body}) =>
-            `<TabItem value="${value}">${body}</TabItem>`
-          ).join('\n')}
-        </Tabs>
-      `
-      console.log(node.value)
-    }
+    injectImport(tree, "import Tabs from '@theme/Tabs';")
+    injectImport(tree, "import TabItem from '@theme/TabItem';")
+    node.value = `
+      <Tabs
+        values={[
+        ${tabs.map(({label, value}) =>
+          `{label: '${label}', value: '${value}'}`
+        ).join(',')}
+        ]}>
+        ${tabs.map(({value, body}) =>
+          `<TabItem value="${value}">${body}</TabItem>`
+        ).join('\n')}
+      </Tabs>
+    `
   })
 }
