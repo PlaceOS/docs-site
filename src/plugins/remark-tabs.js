@@ -37,6 +37,7 @@ module.exports = () => (tree, file) => {
     injectImport(tree, "import TabItem from '@theme/TabItem';")
     node.value = `
       <Tabs
+        defaultValue="${tabs[0].value}"
         values={[
         ${tabs.map(({label, value}) =>
           `{label: '${label}', value: '${value}'}`
