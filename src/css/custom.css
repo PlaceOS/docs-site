@@ -82,3 +82,11 @@ p {
   background: none;
   border: none;
 }
+
+.pagination-nav a {
+  color: #24cdfd
+}
+
+.pagination-nav :hover {
+  border-color: #24cdfd
+}
