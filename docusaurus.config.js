@@ -52,6 +52,14 @@ module.exports = {
   stylesheets: [
     '/fonts/fonts.css'
   ],
+  plugins: [
+    [
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {
+        docsRouteBasePath: '/',
+      }
+    ],
+  ],
   presets: [
     [
       '@docusaurus/preset-classic',
