@@ -18,9 +18,9 @@ module.exports = {
     image: 'img/meta.png',
     announcementBar: {
       id: 'wip',
-      content: "<b>PlaceOS</b> is currently in early preview. If you are stuck and in need of a human, come say hi at <a href=\"mailto:support@place.technology\">support@place.technology</a>.",
+      content: "<b>PlaceOS</b> is currently in early preview. If you are stuck and in need of a human, come say hi at <a href=\"mailto:support@place.technology\">support@place.technology</a>",
       backgroundColor: '#24Cdfd',
-      textColor: '#fff',
+      textColor: '#0a0d2e',
     },
     navbar: {
       hideOnScroll: true,
