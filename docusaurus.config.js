@@ -30,10 +30,23 @@ module.exports = {
         srcDark: 'img/logo_dark.svg',
       },
       items: [
-        { to: 'overview', label: 'Docs' },
-        { to: 'how-to', label: 'Drivers' },
-        { to: 'reference', label: 'API' },
-        { href: 'https://github.com/PlaceOS/PlaceOS/discussions', label: 'Community' }
+        {
+          to: 'overview',
+          label: 'Docs',
+          activeBaseRegex: '^(?!\/?reference\/(api|supported-integrations)).+$',
+        },
+        {
+          to: 'reference/supported-integrations',
+          label: 'Drivers',
+        },
+        {
+          to: 'reference/api',
+          label: 'API',
+        },
+        {
+          href: 'https://github.com/PlaceOS/PlaceOS/discussions',
+          label: 'Community',
+        }
       ],
     },
     hideableSidebar: true,
