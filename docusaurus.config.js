@@ -31,7 +31,7 @@ module.exports = {
       },
       items: [
         {
-          to: 'overview',
+          to: '/',
           label: 'Docs',
           activeBaseRegex: '^(?!\/?reference\/(api|supported-integrations)).+$',
         },
