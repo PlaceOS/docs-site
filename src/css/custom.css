@@ -1,8 +1,6 @@
 /* stylelint-disable docusaurus/copyright-header */
 
 :root {
-  --full-height: calc(100vh - var(--ifm-navbar-height));
-
   --ifm-color-primary: #c92366;
   --ifm-color-primary-dark: #a61e5b;
 
@@ -70,9 +68,9 @@ p {
 }
 
 .pagination-nav a {
-  color: #24cdfd
+  color: #24cdfd;
 }
 
 .pagination-nav :hover {
-  border-color: #24cdfd
+  border-color: #24cdfd;
 }
