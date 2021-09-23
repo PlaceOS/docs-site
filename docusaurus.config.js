@@ -101,5 +101,14 @@ module.exports = {
         },
       },
     ],
+    [
+      'redocusaurus',
+      {
+        specs: [{
+          specUrl: 'https://redocly.github.io/redoc/openapi.yaml',
+          routePath: '/api/',
+        }],
+      }
+    ],
   ],
 };
