@@ -23,7 +23,6 @@ module.exports = {
       textColor: '#0a0d2e',
     },
     navbar: {
-      hideOnScroll: true,
       logo: {
         alt: 'PlaceOS',
         src: 'img/logo.svg',
