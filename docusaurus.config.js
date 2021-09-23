@@ -104,7 +104,7 @@ module.exports = {
       'redocusaurus',
       {
         specs: [{
-          specUrl: 'https://redocly.github.io/redoc/openapi.yaml',
+          specUrl: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore-expanded.yaml',
           routePath: '/api/',
         }],
       }
